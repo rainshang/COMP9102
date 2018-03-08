@@ -17,22 +17,27 @@ public class vc {
     private static Scanner scanner;
     private static ErrorReporter reporter;
     private static Token currentToken;
-    private static String inputFilename; 
+    private static String inputFilename;
 
- 
+
     public static void main(String[] args) {
-        inputFilename = args[0];
-
+        if (args.length == 0) {
+            System.out.print("\nPlease type the vc file you want to scan:");
+            java.util.Scanner consoleScanner = new java.util.Scanner(System.in);
+            inputFilename = "Scanner/" + consoleScanner.nextLine() + ".vc";
+        } else {
+            inputFilename = args[0];
+        }
         System.out.println("======= The VC compiler =======");
 
         SourceFile source = new SourceFile(inputFilename);
 
         reporter = new ErrorReporter();
-        scanner  = new Scanner(source, reporter);
+        scanner = new Scanner(source, reporter);
         scanner.enableDebugging();
 
-        do 
-	  currentToken = scanner.getToken();
+        do
+            currentToken = scanner.getToken();
         while (currentToken.kind != Token.EOF);
     }
 }
