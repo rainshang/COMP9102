@@ -338,7 +338,7 @@ public final class Scanner {
                     Token keywords = new Token(Token.ID, currentSpelling.toString(), currentPosition);
                     if (keywords.kind != Token.ID) {// is keywords
                         return keywords.kind;
-                    } else if ("true".equals(currentSpelling) || "false".equals(currentSpelling)) {
+                    } else if ("true".equals(currentSpelling.toString()) || "false".equals(currentSpelling.toString())) {
                         return Token.BOOLEANLITERAL;
                     } else {
                         return Token.ID;
