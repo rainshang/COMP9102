@@ -1,7 +1,7 @@
 /*+*
  *
  * vc.java           67/2/2017
- * 
+ *
  * Jingling Xue, CSE, UNSW, Sydney NSW 2052, Australia.
  *
  *+*/
@@ -22,9 +22,9 @@ public class vc {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            System.out.print("\nPlease type the vc file you want to scan:");
+            System.out.print("Please type the file you want to process:");
             java.util.Scanner consoleScanner = new java.util.Scanner(System.in);
-            inputFilename = "Scanner/" + consoleScanner.nextLine() + ".vc";
+            inputFilename = consoleScanner.nextLine();
         } else {
             inputFilename = args[0];
         }

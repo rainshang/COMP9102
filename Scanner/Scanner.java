@@ -35,7 +35,7 @@ public final class Scanner {
                 currentPosition.charFinish = 0;
                 break;
             case '\t':
-                currentPosition.charFinish += (currentPosition.charFinish == 0 ? 8 : 7);
+                currentPosition.charFinish = (currentPosition.charFinish - currentPosition.charFinish % 8) + 8;
                 break;
             default:
                 currentPosition.charFinish++;
