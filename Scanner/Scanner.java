@@ -403,17 +403,14 @@ public final class Scanner {
                                 readNextChar();
                                 switch (currentChar) {
                                     case '*':
-                                        do {
-                                            readNextChar();
-                                            switch (currentChar) {
-                                                case '/':// ends with "*/"
-                                                    isMultiLineCommentEndNormally = true;
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
+                                        switch (inspectChar(1)) {
+                                            case '/':// ends with "*/"
+                                                readNextChar();
+                                                isMultiLineCommentEndNormally = true;
+                                                break;
+                                            default:
+                                                break;
                                         }
-                                        while (!isMultiLineCommentEndNormally && currentChar != SourceFile.eof);
                                         break;
                                     default:
                                         break;
