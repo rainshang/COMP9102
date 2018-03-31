@@ -267,7 +267,7 @@ public final class Scanner {
                                 case 'b':
                                     readNextChar();
                                     readNextChar();
-                                    currentSpelling.append('\b');
+//                                    currentSpelling.append('\b');// according to the given solution, ignore \b
                                     break;
                                 case 'n':
                                     readNextChar();
