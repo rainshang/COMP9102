@@ -27,7 +27,7 @@ public class vc {
         if (args.length == 0) {
             System.out.print("Please type the file you want to process:");
             java.util.Scanner consoleScanner = new java.util.Scanner(System.in);
-            inputFilename = consoleScanner.nextLine();
+            inputFilename = "Recogniser/test_data/" + consoleScanner.nextLine() + ".vc";
         } else {
             inputFilename = args[0];
         }
@@ -37,12 +37,6 @@ public class vc {
 
         reporter = new ErrorReporter();
         scanner = new Scanner(source, reporter);
-        scanner.enableDebugging();
-
-        Token currentToken;
-        do
-            currentToken = scanner.getToken();
-        while (currentToken.kind != Token.EOF);
 
         recogniser = new Recogniser(scanner, reporter);
 
