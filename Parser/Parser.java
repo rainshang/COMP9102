@@ -217,6 +217,8 @@ public class Parser {
     }
 
     /**
+     * down-top parse
+     * <p>
      * var-decl            -> type init-declarator-list ";"
      * init-declarator-list-> init-declarator ( "," init-declarator )*
      * init-declarator     -> declarator ( "=" initialiser )?
@@ -244,10 +246,9 @@ public class Parser {
             declType = type;
         }
 
-        // down to top, to init-declarator-list
+        // init-declarator     -> declarator ( "=" initialiser )?
         SourcePosition initDeclPosition = newAndStart();
 
-        // init-declarator, first hit
         Decl varDecl = null;
         if (Token.EQ == currentToken.kind) {// init-declarator     -> declarator  "=" initialiser
             accept();
@@ -259,7 +260,7 @@ public class Parser {
 
         finish(initDeclPosition);
 
-        // init-declarator-list, recursive hit
+        // init-declarator-list-> init-declarator ( "," init-declarator )*
         if (Token.COMMA == currentToken.kind) {
             accept();
             boolean isGlobal = true;
@@ -406,6 +407,7 @@ public class Parser {
             exprList = new ExprList(expr, new EmptyExprList(dummyPos), position);
         }
 
+        finish(position);
         return exprList;
     }
 
@@ -490,7 +492,6 @@ public class Parser {
      */
     private List parseVarDeclList() throws SyntaxError {
         List varDeclList = null;
-        SourcePosition position = newAndStart();
 
         if (primitiveTypeFirstSet.contains(currentToken.kind)) {
             varDeclList = parseVarDecl();
@@ -504,7 +505,6 @@ public class Parser {
             varDeclList = new EmptyDeclList(dummyPos);
         }
 
-        finish(position);
         return varDeclList;
     }
 
@@ -814,7 +814,6 @@ public class Parser {
      */
     private Expr parseRelExpr() throws SyntaxError {
         Expr expr = null;
-        SourcePosition position = newAndStart();
 
         expr = parseAdditiveExpr();
 
@@ -829,7 +828,6 @@ public class Parser {
             expr = new BinaryExpr(expr, operator, subExpr, subPosition);
         }
 
-        finish(position);
         return expr;
     }
 

@@ -37,7 +37,7 @@ public class Drawer {
 
     frame = new DrawerFrame(panel);
 
-    Font font = new Font("Times", Font.BOLD, 12);
+    Font font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
     frame.setFont(font);
 
     FontMetrics fontMetrics = frame.getFontMetrics(font);
@@ -53,6 +53,8 @@ public class Drawer {
   }
 
   public void paintAST (Graphics g) {
+    ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+              RenderingHints.VALUE_ANTIALIAS_ON);
     g.setColor(Color.white);
     g.setColor(panel.getBackground());
     Dimension d = panel.getSize();

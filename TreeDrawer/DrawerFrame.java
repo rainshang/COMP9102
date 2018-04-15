@@ -17,8 +17,8 @@ class DrawerFrame extends JFrame {
         int screenHeight = d.height;
         int screenWidth = d.width;
         setTitle("The VC Compiler Abstract Syntax Tree");
-        setSize((screenWidth * 9) / 10, (screenHeight * 9) / 10);
-        setLocation(screenWidth / 20, screenHeight / 20);
+        setSize((screenWidth * 2) / 3, (screenHeight * 2) / 3);
+        setLocation(screenWidth / 6, screenHeight / 6);
         // Image img = tk.getImage("icon.gif");
         // setIconImage(img);
 
