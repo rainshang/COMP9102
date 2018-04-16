@@ -13,6 +13,9 @@ import java.awt.Point;
 
 public class DrawingTree {
 
+    private final static int PADDING = 20;
+    private static int mostLeftX = Integer.MAX_VALUE;
+
     String caption;
     int width, height;
     Point pos, offset;
@@ -67,7 +70,7 @@ public class DrawingTree {
         }
     }
 
-    public void position(Point pos) {
+    private void position(Point pos) {
 
         this.pos.x = pos.x + this.offset.x;
         this.pos.y = pos.y + this.offset.y;
@@ -81,6 +84,18 @@ public class DrawingTree {
                 temp.y = this.pos.y + children[0].offset.y;
             }
         }
+
+        if (mostLeftX > pos.x) {
+            mostLeftX = pos.x;
+        }
+    }
+
+    /**
+     * only tree root node should call this func
+     */
+    public void fitPerfectDisplayPoint() {
+        position(new Point(0, 0));
+        position(new Point(-mostLeftX + PADDING, PADDING));
     }
 
 }
