@@ -14,7 +14,10 @@ import java.awt.Point;
 public class DrawingTree {
 
     private final static int PADDING = 20;
-    private static int mostLeftX = Integer.MAX_VALUE;
+    private static int _left = Integer.MAX_VALUE;
+    private static int _top = Integer.MAX_VALUE;
+    private static int _right = Integer.MIN_VALUE;
+    private static int _bottom = Integer.MIN_VALUE;
 
     String caption;
     int width, height;
@@ -85,17 +88,28 @@ public class DrawingTree {
             }
         }
 
-        if (mostLeftX > pos.x) {
-            mostLeftX = pos.x;
+        if (_left > pos.x) {
+            _left = pos.x;
+        }
+        if (_top > pos.y) {
+            _top = pos.y;
+        }
+        if (_right < pos.x + width) {
+            _right = pos.x + width;
+        }
+        if (_bottom < pos.y + height) {
+            _bottom = pos.y + height;
         }
     }
 
     /**
      * only tree root node should call this func
      */
-    public void fitPerfectDisplayPoint() {
+    public void fitPerfectDisplayPoint(JPanel jPanel) {
         position(new Point(0, 0));
-        position(new Point(-mostLeftX + PADDING, PADDING));
+        // I don't figure out why it displays weird when scrollbar shows. It made me to add the additional 50
+        jPanel.setPreferredSize(new Dimension(_right - _left + PADDING * 2 + 50, _bottom - _top + PADDING * 2 + 50));
+        position(new Point(-_left + PADDING, PADDING));
     }
 
 }

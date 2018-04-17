@@ -46,7 +46,7 @@ public class Drawer {
     if (debug)
       layout.enableDebugging();
     theDrawing = (DrawingTree) theAST.visit(layout, null);
-    theDrawing.fitPerfectDisplayPoint();
+    theDrawing.fitPerfectDisplayPoint(panel);
 
     frame.setVisible(true);
 

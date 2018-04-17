@@ -11,7 +11,6 @@ import javax.swing.*;
 
 class DrawerFrame extends JFrame {
     public DrawerFrame(JPanel panel) {
-        setSize(1000, 800);
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d = tk.getScreenSize();
         int screenHeight = d.height;
