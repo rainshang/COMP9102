@@ -494,8 +494,8 @@ public final class Checker implements Visitor {
             reporter.reportError(ERR_MESG[8], "", ast.position);
         }
         if (!funcType.isVoidType()) {
-            returnValueFuncs.add(funcDecl);
             if (funcType.assignable(exprType)) {
+                returnValueFuncs.add(funcDecl);
                 if (!funcType.equals(exprType)) {
                     ast.E = i2f(ast.E);
                 }
