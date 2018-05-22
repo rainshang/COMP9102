@@ -327,7 +327,9 @@ public final class Checker implements Visitor {
         idTable.insert(ast.I.spelling, ast);
         ast.S.visit(this, ast);
         if (!ast.T.isVoidType() && !returnValueFuncs.contains(ast)) {
-            reporter.reportError(ERR_MESG[31], "", ast.position);
+            if (!"main".equals(ast.I.spelling)) {
+                reporter.reportError(ERR_MESG[31], "", ast.position);
+            }
         }
         return null;
     }
