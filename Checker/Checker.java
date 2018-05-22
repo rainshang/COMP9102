@@ -776,7 +776,7 @@ public final class Checker implements Visitor {
             ast.type = StdEnvironment.errorType;
 
         }
-        return null;
+        return ast.type;
     }
 
     @Override
