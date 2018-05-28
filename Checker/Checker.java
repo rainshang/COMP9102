@@ -576,7 +576,7 @@ public final class Checker implements Visitor {
                 break;
             case "!":
                 if (exprType.isBooleanType()) {
-                    ast.O.spelling += "i";
+                    ast.O.spelling = "i" + ast.O.spelling;
                     ast.type = exprType;
                 } else {
                     reporter.reportError(ERR_MESG[10] + ": %", ast.O.spelling, ast.position);
@@ -670,10 +670,10 @@ public final class Checker implements Visitor {
         }
         switch (status) {
             case 1:
-                ast.O.spelling += "f";
+                ast.O.spelling = "f" + ast.O.spelling;
                 break;
             case 2:
-                ast.O.spelling += "i";
+                ast.O.spelling = "i" + ast.O.spelling;
                 break;
             case 3:
                 reporter.reportError(ERR_MESG[9] + ": %", ast.O.spelling, ast.position);
@@ -744,6 +744,7 @@ public final class Checker implements Visitor {
             ast.type = StdEnvironment.errorType;
         } else if (decl.isFuncDecl()) {
             ast.AL.visit(this, ((FuncDecl) decl).PL);
+            ast.I.decl = decl;
             ast.type = decl.T;
         } else {
             reporter.reportError(ERR_MESG[19] + ": %", ast.I.spelling, ast.position);
@@ -871,7 +872,7 @@ public final class Checker implements Visitor {
         }
         if (!isTypeMatched) {
             reporter.reportError(ERR_MESG[27] + ": %", decl.I.spelling, ast.E.position);
-        } else if (isTypeMatched && decl.T.equals(type)) {
+        } else if (isTypeMatched && !decl.T.equals(type)) {
             ast.E = i2f(ast.E);
         }
         return null;
@@ -922,6 +923,7 @@ public final class Checker implements Visitor {
             ast.type = StdEnvironment.errorType;
             reporter.reportError(ERR_MESG[11] + ": %", ast.I.spelling, ast.position);
         } else {
+            ast.I.decl = decl;
             ast.type = decl.T;
         }
         if (ast.type.isArrayType()

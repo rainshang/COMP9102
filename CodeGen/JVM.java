@@ -4,6 +4,14 @@
 
 package VC.CodeGen;
 
+import com.sun.org.apache.bcel.internal.generic.BALOAD;
+import com.sun.org.apache.bcel.internal.generic.BASTORE;
+import com.sun.org.apache.bcel.internal.generic.FALOAD;
+import com.sun.org.apache.bcel.internal.generic.FASTORE;
+import com.sun.org.apache.bcel.internal.generic.IALOAD;
+import com.sun.org.apache.bcel.internal.generic.IASTORE;
+import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
+
 import java.io.*;
 
 // This JVM includes only a subset the JVM instructions
@@ -21,14 +29,14 @@ public final class JVM {
   public static void append(Instruction inst) {
     if (nextInstAddr >= codeSize) {
       Instruction[] newCode = new Instruction[2 * codeSize];
-      System.arraycopy(code, 0, newCode, 0, codeSize); 
+      System.arraycopy(code, 0, newCode, 0, codeSize);
       codeSize = 2 * code.length;
       code = newCode;
     }
-    
+
     code[nextInstAddr++] = inst;
   }
-  
+
   public static void dump(String filename) {
     PrintWriter writer;
     try {
@@ -38,10 +46,10 @@ public final class JVM {
 
       writer.close();
     } catch (FileNotFoundException e) {
-      System.out.println ("Error opening object file: " + e); 
+      System.out.println ("Error opening object file: " + e);
       System.exit(1);
     } catch (Exception e) {
-      System.out.println ("Error writing object file: " + e); 
+      System.out.println ("Error writing object file: " + e);
       System.exit(1);
     }
   }
@@ -167,16 +175,26 @@ public final class JVM {
     NEW = "new",
 
   // Operand Stack management instructions
-   
+
     DUP = "dup",
-    POP = "pop", 
-    NOP = "nop"; 
+    POP = "pop",
+    NOP = "nop",
+
+    // array instruction
+    NEWARRAY = "newarray",
+    IASTORE = "iastore",
+    BASTORE = "bastore",
+    FASTORE = "fastore",
+    IALOAD = "iaload",
+    BALOAD = "baload",
+    FALOAD = "faload";
+
 
 // Limitations of the JVM 
 
   public final static int
     MAX_BYTE = 255,  // 2^8 -1
     MAX_SHORT = 65535, // 2^16 - 1
-    MAX_LOCALVARINDEX = MAX_SHORT, 
+    MAX_LOCALVARINDEX = MAX_SHORT,
     MAX_OPSTACK = MAX_SHORT;
 }
